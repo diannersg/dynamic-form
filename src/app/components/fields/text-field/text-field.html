@@ -1,0 +1,10 @@
+<div>
+  @if(field()?.Control) {
+    <input
+      type="text"
+      [id]="field()?.ID"
+      [placeholder]="field()?.Placeholder"
+      [formControl]="field()!.Control!"
+    >
+  }
+</div>
