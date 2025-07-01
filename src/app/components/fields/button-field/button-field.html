@@ -1,1 +1,3 @@
-<button (click)="onClick()" >{{ field()?.Title }}</button>
+@if (field()?.Show) {
+  <button (click)="onClick()" >{{ field()?.Title }}</button>
+}

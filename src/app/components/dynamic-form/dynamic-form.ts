@@ -20,15 +20,21 @@ import {FormControl} from '@angular/forms';
 })
 export class DynamicForm implements OnInit {
   fieldType = FieldType;
-  formConfigService = inject(FormConfigService);
-  form = signal<FormConfigInterface | undefined>(this.formConfigService.getFormConfig());
+  private formConfigService = inject(FormConfigService);
+  form = this.formConfigService.formConfig;
 
   ngOnInit(): void {
-    this.form()?.Fields.forEach(field => {
+    this.formConfigService.loadFormConfig()
+      .subscribe(((resp) => this.initializeConfig(resp)));
+  }
+
+  initializeConfig(resp: FormConfigInterface) {
+    resp.Fields.forEach(field => {
       if(field.Type === FieldType.Text) {
         const textField = field as TextFieldInterface;
         textField.Control = new FormControl<string>(textField.Value ?? '');
       }
     })
+    this.formConfigService.setFormConfig(resp);
   }
 }

@@ -16,6 +16,8 @@ export class ButtonField {
     {transform: (field: FormFieldInterface) => field as ButtonFieldInterface}
   );
 
+
+
   onClick() {
     alert(this.formConfigService.parseAlertMessage(this.field()?.AlertMessage ?? ''));
   }
